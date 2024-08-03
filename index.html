@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+</head>
+
+<body>
+    <h1>Lista de Usuarios</h1>
+    <ul id="lista-usuarios"></ul>
+
+    <script>
+        // URL de la API
+        const url = 'http://localhost:3000/api/registros';
+
+        // Función para obtener los usuarios
+        async function obtenerUsuarios() {
+            try {
+                const respuesta = await fetch(url);
+                const usuarios = await respuesta.json();
+                console.log(usuarios); // imprime los usuarios en la consola
+                return usuarios;
+            } catch (error) {
+                console.error('Error al obtener los usuarios:', error);
+            }
+        }
+
+        // Función para mostrar los usuarios
+        function mostrarUsuarios(usuarios) {
+        const lista = document.getElementById('lista-usuarios');
+        usuarios[0].forEach((usuario) => {
+        console.log(usuario); // imprime cada usuario en la consola
+        const elemento = document.createElement('li');
+        elemento.textContent = `${usuario.nombre} (${usuario.edad} años)`;
+        lista.appendChild(elemento);
+    });
+}
+
+        // Llamar a la API y mostrar los usuarios
+        obtenerUsuarios().then((usuarios) => {
+            mostrarUsuarios(usuarios);
+        });
+    </script>
+</body>
+
+</html>
